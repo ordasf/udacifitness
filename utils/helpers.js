@@ -1,5 +1,9 @@
 // utils/helpers.js
-
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
+import { MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
+import { white, red, blue, orange, lightPurp, pink } from './colors'
+/*
 export function getMetricMetaInfo (metric) {
   const info = {
     run: {
@@ -10,7 +14,7 @@ export function getMetricMetaInfo (metric) {
       type: 'steppers',
       getIcon() {
         return (
-          <View style={[styles.iconContainer, {backgroundColor: red}]}>
+          <View style=[styles.iconStyles] style={[styles.iconContainer, {backgroundColor: red}]}>
             <MaterialIcons
               name='directions-run'
               color={white}
@@ -28,7 +32,7 @@ export function getMetricMetaInfo (metric) {
       type: 'steppers',
       getIcon() {
         return (
-          <View style={[styles.iconContainer, {backgroundColor: orange}]}>
+          <View style=[styles.iconStyles] style={[styles.iconContainer, {backgroundColor: orange}]}>
             <MaterialCommunityIcons
               name='bike'
               color={white}
@@ -46,7 +50,7 @@ export function getMetricMetaInfo (metric) {
       type: 'steppers',
       getIcon() {
         return (
-          <View style={[styles.iconContainer, {backgroundColor: blue}]}>
+          <View style=[styles.iconStyles] style={[styles.iconContainer, {backgroundColor: blue}]}>
             <MaterialCommunityIcons
               name='swim'
               color={white}
@@ -64,7 +68,7 @@ export function getMetricMetaInfo (metric) {
       type: 'slider',
       getIcon() {
         return (
-          <View style={[styles.iconContainer, {backgroundColor: lightPurp}]}>
+          <View style=[styles.iconStyles] style={[styles.iconContainer, {backgroundColor: lightPurp}]}>
             <FontAwesome
               name='bed'
               color={white}
@@ -82,7 +86,7 @@ export function getMetricMetaInfo (metric) {
       type: 'slider',
       getIcon() {
         return (
-          <View style={[styles.iconContainer, {backgroundColor: pink}]}>
+          <View style=[styles.iconStyles] style={[styles.iconContainer, {backgroundColor: pink}]}>
             <MaterialCommunityIcons
               name='food'
               color={white}
@@ -98,7 +102,7 @@ export function getMetricMetaInfo (metric) {
     ? info
     : info[metric]
 }
-
+*/
 export function isBetween (num, x, y) {
   if (num >= x && num <= y) {
     return true
@@ -139,4 +143,121 @@ export function timeToString (time = Date.now()) {
   const date = new Date(time)
   const todayUTC = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
   return todayUTC.toISOString().split('T')[0]
+}
+
+const styles = StyleSheet.create({
+  iconContainer: {
+    padding: 5,
+    borderRadius: 8,
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 20
+  }
+})
+
+export function getMetricMetaInfo(metric) {
+  const info = {
+    run: {
+      name: 'Run',
+      max: 50,
+      unit: 'miles',
+      step: 1,
+      type: 'steppers',
+      getIcon() {
+        return (
+          <View style={[styles.iconContainer, { backgroundColor: red }]}>
+            <MaterialIcons
+              name='directions-run'
+              color={white}
+              size={35}
+            />
+          </View>
+        )
+      }
+    },
+    bike: {
+      name: 'Bike',
+      max: 100,
+      unit: 'miles',
+      step: 1,
+      type: 'steppers',
+      getIcon() {
+        return (
+          <View style={[styles.iconContainer, { backgroundColor: orange }]}>
+            <MaterialCommunityIcons
+              name='bike'
+              color={white}
+              size={35}
+            />
+          </View>
+        )
+      }
+    },
+    swim: {
+      name: 'Swim',
+      max: 9900,
+      unit: 'meters',
+      step: 100,
+      type: 'steppers',
+      getIcon() {
+        return (
+          <View style={[styles.iconContainer, { backgroundColor: blue }]}>
+            <MaterialCommunityIcons
+              name='swim'
+              color={white}
+              size={35}
+            />
+          </View>
+        )
+      }
+    },
+    sleep: {
+      name: 'Sleep',
+      max: 24,
+      unit: 'hours',
+      step: 1,
+      type: 'slider',
+      getIcon() {
+        return (
+          <View style={[styles.iconContainer, { backgroundColor: lightPurp }]}>
+            <FontAwesome
+              name='bed'
+              color={white}
+              size={35}
+            />
+          </View>
+        )
+      }
+    },
+    eat: {
+      name: 'Eat',
+      max: 10,
+      unit: 'rating',
+      step: 1,
+      type: 'slider',
+      getIcon() {
+        return (
+          <View style={[styles.iconContainer, { backgroundColor: pink }]}>
+            <MaterialCommunityIcons
+              name='food'
+              color={white}
+              size={35}
+            />
+          </View>
+        )
+      }
+    }
+  }
+
+  return typeof metric === 'undefined'
+    ? info
+    : info[metric]
+}
+
+export function getDailyReminderValue() {
+  return {
+    today: '👋 Don\'t forget to log your data today!'
+  }
 }
