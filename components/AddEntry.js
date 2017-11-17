@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, Platform, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import { getMetricMetaInfo, timeToString, getDailyRemider } from '../utils/helpers'
+import {
+  getMetricMetaInfo,
+  timeToString,
+  getDailyReminderValue,
+  clearLocalNotification,
+  setLocalNotification
+} from '../utils/helpers'
 import UdacitySlider from '../components/UdacitySlider'
 import UdacitySteppers from '../components/UdacitySteppers'
 import DateHeader from '../components/DateHeader'
@@ -85,7 +91,8 @@ class AddEntry extends Component {
 
     this.toHome()
 
-    // Clear local notifications
+    clearLocalNotification()
+      .then(setLocalNotification)
 
     submitEntry(key, entry)
   }
